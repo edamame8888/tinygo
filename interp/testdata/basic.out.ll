@@ -3,6 +3,7 @@ target triple = "x86_64--linux"
 
 @main.nonConst1 = local_unnamed_addr global [4 x i64] zeroinitializer
 @main.nonConst2 = local_unnamed_addr global i64 0
+@main.someArray = global [8 x { i16, i32 }] zeroinitializer
 
 declare void @runtime.printint64(i64) unnamed_addr
 
@@ -16,6 +17,7 @@ entry:
   store i64 %value1, i64* getelementptr inbounds ([4 x i64], [4 x i64]* @main.nonConst1, i32 0, i32 0)
   %value2 = load i64, i64* getelementptr inbounds ([4 x i64], [4 x i64]* @main.nonConst1, i32 0, i32 0)
   store i64 %value2, i64* @main.nonConst2
+  call void @modifyExternal(i32* getelementptr inbounds ([8 x { i16, i32 }], [8 x { i16, i32 }]* @main.someArray, i32 0, i32 3, i32 1))
   ret void
 }
 
@@ -27,3 +29,5 @@ entry:
 }
 
 declare i64 @someValue() local_unnamed_addr
+
+declare void @modifyExternal(i32*) local_unnamed_addr

@@ -12,3 +12,5 @@ require (
 	golang.org/x/tools v0.0.0-20200216192241-b320d3a0f5a2
 	tinygo.org/x/go-llvm v0.0.0-20200503225853-345b2947b59d
 )
+
+replace tinygo.org/x/go-llvm => ../../../tinygo.org/x/go-llvm

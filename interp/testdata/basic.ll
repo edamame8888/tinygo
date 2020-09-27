@@ -4,6 +4,7 @@ target triple = "x86_64--linux"
 @main.v1 = internal global i64 0
 @main.nonConst1 = global [4 x i64] zeroinitializer
 @main.nonConst2 = global i64 0
+@main.someArray = global [8 x {i16, i32}] zeroinitializer
 
 declare void @runtime.printint64(i64) unnamed_addr
 
@@ -47,6 +48,12 @@ entry:
   %value2 = load i64, i64* %gep2
   store i64 %value2, i64* @main.nonConst2
 
+  ; Test that the following GEP works:
+  ;     var someArray
+  ;     modifyExternal(&someArray[3].field1)
+  %gep3 = getelementptr [8 x {i16, i32}], [8 x {i16, i32}]* @main.someArray, i32 0, i32 3, i32 1
+  call void @modifyExternal(i32* %gep3)
+
   ret void
 }
 
@@ -58,3 +65,5 @@ entry:
 }
 
 declare i64 @someValue()
+
+declare void @modifyExternal(i32*)

@@ -201,7 +201,10 @@ tinygo-test:
 	$(TINYGO) test crypto/des
 	$(TINYGO) test encoding/ascii85
 	$(TINYGO) test encoding/hex
+	$(TINYGO) test hash/adler32
 	$(TINYGO) test math
+	$(TINYGO) test math/cmplx
+	$(TINYGO) test regexp/syntax
 	$(TINYGO) test text/scanner
 	$(TINYGO) test unicode/utf8
 
